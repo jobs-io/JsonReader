@@ -2,7 +2,7 @@ using NUnit.Framework;
 
 namespace JsonReader.Tests
 {
-    public class Tests
+    public class ReaderTests
     {
         [SetUp]
         public void Setup()
