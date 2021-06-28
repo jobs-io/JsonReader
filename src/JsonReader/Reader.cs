@@ -18,5 +18,10 @@ namespace JsonReader
         public string GetString(string[] pathToElements) {
             return document.RootElement.GetProperty(pathToElements[0]).GetString();
         }
+
+        
+        public DateTime GetDateTime(string[] pathToElements) {
+            return document.RootElement.GetProperty(pathToElements[0]).GetDateTime();
+        }
     }
 }

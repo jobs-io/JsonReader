@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 
 namespace JsonReader.Tests
@@ -22,6 +23,13 @@ namespace JsonReader.Tests
         {
             var reader = new Reader(json);
             Assert.AreEqual(expectedValue, reader.GetInt(new string[] {property}));
+        }
+
+        [TestCase("{\"dateModified\": \"2021-06-15T09:32:25Z\"}", "dateModified", "2021/06/15 9:32:25")]
+        public void ShouldGetDateTimeValue(string json, string property, DateTime expectedValue)
+        {
+            var reader = new Reader(json);
+            Assert.AreEqual(expectedValue, reader.GetDateTime(new string[] {property}));
         }
     }
 }
