@@ -11,17 +11,21 @@ namespace JsonReader
             document = JsonDocument.Parse(json);
         }
 
+        private JsonElement GetProperty(string[] pathToElements) {
+            return document.RootElement.GetProperty(pathToElements[0]);
+        }
+
         public int GetInt(string[] pathToElements) {
-            return document.RootElement.GetProperty(pathToElements[0]).GetInt32();
+            return GetProperty(pathToElements).GetInt32();
         }
 
         public string GetString(string[] pathToElements) {
-            return document.RootElement.GetProperty(pathToElements[0]).GetString();
+            return GetProperty(pathToElements).GetString();
         }
 
         
         public DateTime GetDateTime(string[] pathToElements) {
-            return document.RootElement.GetProperty(pathToElements[0]).GetDateTime();
+            return GetProperty(pathToElements).GetDateTime();
         }
     }
 }
