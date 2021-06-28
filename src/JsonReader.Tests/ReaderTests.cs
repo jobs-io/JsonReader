@@ -9,10 +9,20 @@ namespace JsonReader.Tests
         {
         }
 
-        [Test]
-        public void Test1()
+        [TestCase("{\"title\": \"Title\"}", "title", "Title")]
+        public void ShouldGetStringValue(string json, string property, string expectedValue)
         {
-            Assert.Pass();
+
+            var reader = new Reader(json);
+            Assert.AreEqual(expectedValue, reader.GetString(new string[] {property}));
         }
+
+        // [TestCase("{\"id\": 1}", "id", "1")]
+        // public void ShouldGetIntValue(string json, string property, int expectedValue)
+        // {
+
+        //     var reader = new Reader(json);
+        //     Assert.AreEqual(expectedValue, reader.GetInt(new string[] {property}));
+        // }
     }
 }
