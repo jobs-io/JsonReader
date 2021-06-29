@@ -4,29 +4,29 @@ using System.Text.Json;
 
 namespace JsonReader
 {
-    public interface IMapItem<T> {
-        T MapItem(JsonElement jsonElement);
+    public interface IMapValue<T> {
+        T Map(JsonElement jsonElement);
     }
 
-    public class MapStringItem : IMapItem<string>
+    public class MapStringValue : IMapValue<string>
     {
-        public string MapItem(JsonElement jsonElement)
+        public string Map(JsonElement jsonElement)
         {
             return jsonElement.GetString();
         }
     }
 
-    public class MapIntItem : IMapItem<int>
+    public class MapIntValue : IMapValue<int>
     {
-        public int MapItem(JsonElement jsonElement)
+        public int Map(JsonElement jsonElement)
         {
             return jsonElement.GetInt32();
         }
     }
 
-    public class MapDateTimeValue : IMapItem<DateTime>
+    public class MapDateTimeValue : IMapValue<DateTime>
     {
-        public DateTime MapItem(JsonElement jsonElement)
+        public DateTime Map(JsonElement jsonElement)
         {
             return jsonElement.GetDateTime();
         }
@@ -58,11 +58,11 @@ namespace JsonReader
             return GetProperty(pathToElements).GetDateTime();
         }
 
-        public T[] GetItems<T>(string[] pathToElements, IMapItem<T> mapItem) {
+        public T[] GetItems<T>(string[] pathToElements, IMapValue<T> mapItem) {
             var array = new List<T>();
 
             foreach(var element in GetProperty(pathToElements).EnumerateArray()) {
-                array.Add(mapItem.MapItem(element));
+                array.Add(mapItem.Map(element));
             }
 
             return array.ToArray();
