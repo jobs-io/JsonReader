@@ -28,7 +28,7 @@ namespace JsonReader
     {
         public DateTime MapItem(JsonElement jsonElement)
         {
-            throw new NotImplementedException();
+            return jsonElement.GetDateTime();
         }
     }
 
