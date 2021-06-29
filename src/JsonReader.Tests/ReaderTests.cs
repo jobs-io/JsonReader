@@ -3,6 +3,8 @@ using NUnit.Framework;
 
 namespace JsonReader.Tests
 {
+    // public class SampleClass {}
+
     public class ReaderTests
     {
         [SetUp]
@@ -30,6 +32,13 @@ namespace JsonReader.Tests
         {
             var reader = new Reader(json);
             Assert.AreEqual(expectedValue, reader.GetDateTime(new string[] {property}));
+        }
+
+        [TestCase("{\"items\": [\"Title\"]}", "items", new string[] { "Title" })]
+        public void ShouldListOfItems(string json, string property, string[] expectedValue)
+        {
+            var reader = new Reader(json);
+            Assert.AreEqual(expectedValue, reader.GetItems<string>(new string[] {property}, new MapStringItem()));
         }
     }
 }
