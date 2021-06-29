@@ -29,12 +29,12 @@ namespace JsonReader.Tests
         {
         }
 
-        [TestCase("{\"title\": \"Title\"}", "title", "Title")]
-        public void ShouldGetStringValue(string json, string property, string expectedValue)
+        [TestCase("{\"title\": \"Title\"}", new string[] {"title"}, "Title")]
+        public void ShouldGetStringValue(string json, string[] properties, string expectedValue)
         {
 
             var reader = new Reader(json);
-            Assert.AreEqual(expectedValue, reader.GetString(new string[] {property}));
+            Assert.AreEqual(expectedValue, reader.GetString(properties));
         }
 
         [TestCase("{\"id\": 1}", "id", "1")]
