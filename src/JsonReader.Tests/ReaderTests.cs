@@ -77,9 +77,10 @@ namespace JsonReader.Tests
         public void ShouldGetListOfSampleClass() {
             var reader = new Reader("{\"items\": [{\"id\": \"identifier\"}]}");
             var expectedValue = new Sample[] { new Sample() { Id = "identifier" } };
+            var items = reader.GetItems<Sample>(new string[] {"items"}, new MapSample("id"));
 
-            Assert.AreEqual(expectedValue.Length, reader.GetItems<Sample>(new string[] {"items"}, new MapSample("id")).Length);
-            Assert.AreEqual(expectedValue[0].Id, reader.GetItems<Sample>(new string[] {"items"}, new MapSample("id"))[0].Id);
+            Assert.AreEqual(expectedValue.Length, items.Length);
+            Assert.AreEqual(expectedValue[0].Id, items[0].Id);
         }
     }
 }
