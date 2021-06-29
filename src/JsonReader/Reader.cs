@@ -11,6 +11,7 @@ namespace JsonReader
     public class MapStringValue : IMapValue<string>
     {
         public string Map(JsonElement jsonElement)
+
         {
             return jsonElement.GetString();
         }
@@ -41,8 +42,11 @@ namespace JsonReader
         }
 
         private JsonElement GetProperty(string[] pathToElements) {
-            document.RootElement.GetProperty(pathToElements[0]);
-            return document.RootElement.GetProperty(pathToElements[0]);
+            var jsonElement = document.RootElement;
+            foreach(var path in pathToElements) {
+                jsonElement = jsonElement.GetProperty(path);
+            }
+            return jsonElement;
         }
 
         public int GetInt(string[] pathToElements) {

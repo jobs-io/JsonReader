@@ -30,9 +30,9 @@ namespace JsonReader.Tests
         }
 
         [TestCase("{\"title\": \"Title\"}", new string[] {"title"}, "Title")]
+        [TestCase("{\"title\": { \"shortTitle\": \"Title\" }}", new string[] {"title", "shortTitle"}, "Title")]
         public void ShouldGetStringValue(string json, string[] properties, string expectedValue)
         {
-
             var reader = new Reader(json);
             Assert.AreEqual(expectedValue, reader.GetString(properties));
         }
