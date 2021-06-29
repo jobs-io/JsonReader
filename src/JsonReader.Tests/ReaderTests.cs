@@ -35,10 +35,17 @@ namespace JsonReader.Tests
         }
 
         [TestCase("{\"items\": [\"Title\"]}", "items", new string[] { "Title" })]
-        public void ShouldListOfItems(string json, string property, string[] expectedValue)
+        public void ShouldGetListOfStrings(string json, string property, string[] expectedValue)
         {
             var reader = new Reader(json);
             Assert.AreEqual(expectedValue, reader.GetItems<string>(new string[] {property}, new MapStringItem()));
+        }
+
+        [TestCase("{\"items\": [1]}", "items", new int[] { 1 })]
+        public void ShouldGetListOfNumbers(string json, string property, int[] expectedValue)
+        {
+            var reader = new Reader(json);
+            Assert.AreEqual(expectedValue, reader.GetItems<int>(new string[] {property}, new MapIntItem()));
         }
     }
 }

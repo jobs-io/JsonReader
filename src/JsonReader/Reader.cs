@@ -20,7 +20,7 @@ namespace JsonReader
     {
         public int MapItem(JsonElement jsonElement)
         {
-            throw new NotImplementedException();
+            return jsonElement.GetInt32();
         }
     }
 
