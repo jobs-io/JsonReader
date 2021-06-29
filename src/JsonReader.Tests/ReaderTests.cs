@@ -1,12 +1,29 @@
 using System;
+using System.Text.Json;
 using NUnit.Framework;
 
 namespace JsonReader.Tests
 {
+    public class Sample {
+        public string Id { get; set; }
+    }
+
+    public class MapSample : IMapValue<Sample>
+    {
+        private readonly string idName;
+    
+        public MapSample(string idName) {
+            this.idName = idName;
+        }
+
+        public Sample Map(JsonElement jsonElement)
+        {
+            return new Sample { Id = jsonElement.GetProperty(idName).GetString() };
+        }
+    }
 
     public class ReaderTests
     {
-        // public const string dateTime = new DateTime.MaxValue;
         [SetUp]
         public void Setup()
         {
@@ -54,6 +71,15 @@ namespace JsonReader.Tests
             var reader = new Reader("{\"items\": [\"2021-06-15T09:32:25Z\"]}");
             var expectedValue = new DateTime(2021, 6, 15, 9, 32, 25);
             Assert.AreEqual(new DateTime[] { expectedValue }, reader.GetItems<DateTime>(new string[] {"items"}, new MapDateTimeValue()));
+        }
+
+        [Test]
+        public void ShouldGetListOfSampleClass() {
+            var reader = new Reader("{\"items\": [{\"id\": \"identifier\"}]}");
+            var expectedValue = new Sample[] { new Sample() { Id = "identifier" } };
+
+            Assert.AreEqual(expectedValue.Length, reader.GetItems<Sample>(new string[] {"items"}, new MapSample("id")).Length);
+            Assert.AreEqual(expectedValue[0].Id, reader.GetItems<Sample>(new string[] {"items"}, new MapSample("id"))[0].Id);
         }
     }
 }
